@@ -1,43 +1,37 @@
 //Import Packages
 const express = require('express');
-const Mqtt = require('./mqtt');
-const Influx = require('influx')
-const MqttClient = new Mqtt("mqtt://test.mosquitto.org");
+
 const http = require('http');
 const os = require('os');
 const app = express();
+
+//Local modules
+const Mqtt = require('./mqtt');
+const mqtt = new Mqtt("mqtt://test.mosquitto.org");
+const Influx = require('./databases/database');
+const influx = new Influx();
+
+//App Constants
+const DATABASE_NAME = 'sensor_data';
+const API_PORT = 3001;
+
 
 
 //Connect to mqtt broker
 MqttClient.connect();
 
-//Connec to local influx database
-const influx = new Influx.InfluxDB({
-    host: 'localhost',
-    database: 'express_response_db',
-    schema: [
-      {
-        measurement: 'response_times',
-        fields: {
-          path: Influx.FieldType.STRING,
-          duration: Influx.FieldType.INTEGER
-        },
-        tags: [
-          'host'
-        ]
-      }
-    ]
-  })
+//Connect to local influx database
+InfluxClient.Init();
 
 influx.getDatabaseNames()
   .then(names => {
-    if (!names.includes('express_response_db')) {
-      return influx.createDatabase('express_response_db');
+    if (!names.includes(DATABASE_NAME)) {
+      return influx.createDatabase(DATABASE_NAME);
     }
   })
   .then(() => {
-    http.createServer(app).listen(3001, function () {
-      console.log('Listening on port 3001')
+    http.createServer(app).listen(API_PORT, function () {
+      console.log('Listening on port '+API_PORT);
     })
   })
   .catch(err => {
@@ -46,8 +40,6 @@ influx.getDatabaseNames()
   })
 
 
-
-//Routes for backend
 app.use((req, res, next) => {
   //Any code here will be run before any routes
   return next()
@@ -55,7 +47,7 @@ app.use((req, res, next) => {
 
 //*All below routes are largely for testing
 
-//Dummy test input of temperature data
+//TEMP: Dummy test input of temperature data
 app.get('/test-input', (req,res)=> {
     let timeout = setInterval(() => {
       let temperature = Math.random()*100;
@@ -67,7 +59,7 @@ app.get('/test-input', (req,res)=> {
   },50)
 })
 
-//See test temp data
+//TEMP: See test temp data
 app.get('/temps', function (req, res) {
   influx.query(`
     select * from Temperature
@@ -77,4 +69,13 @@ app.get('/temps', function (req, res) {
   }).catch(err => {
     res.status(500).send(err.stack)
   })
+})
+
+//POST Requests
+//TODO: Need to know format of incoming data
+app.post('/input',(req,res) => {
+  let data = req.body
+  
+  let dataPoints = []
+  influx.writePoints(dataPoints)
 })

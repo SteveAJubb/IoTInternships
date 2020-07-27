@@ -1,3 +1,8 @@
+/**
+ * File that handles mqtt communication
+ * @author Nathan Brown, Harrison Fretwell
+ */
+
 const mqtt=require('mqtt');
 
 module.exports = class Mqtt {
@@ -5,7 +10,7 @@ module.exports = class Mqtt {
         this.hostname = hostname;
     }
 
-    //Connec to mqtt broker
+    //Connect to mqtt broker
     connect(){
         let mqttClient = mqtt.connect(this.hostname)
         mqttClient.on("connect",function(){	
