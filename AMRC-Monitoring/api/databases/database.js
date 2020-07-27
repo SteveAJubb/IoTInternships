@@ -9,7 +9,7 @@ module.exports = class Database{
     /**
      * Connect to influxdb and return instance of influxdb
      */
-    Init(){
+    static Init(){
         const influx = new Influx.InfluxDB({
             host: 'localhost',
             database: 'express_response_db',

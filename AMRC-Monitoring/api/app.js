@@ -9,7 +9,7 @@ const app = express();
 const Mqtt = require('./mqtt');
 const mqtt = new Mqtt("mqtt://test.mosquitto.org");
 const Influx = require('./databases/database');
-const influx = new Influx();
+const influx = Influx.Init()
 
 //App Constants
 const DATABASE_NAME = 'sensor_data';
@@ -18,10 +18,7 @@ const API_PORT = 3001;
 
 
 //Connect to mqtt broker
-MqttClient.connect();
-
-//Connect to local influx database
-InfluxClient.Init();
+mqtt.connect();
 
 influx.getDatabaseNames()
   .then(names => {
