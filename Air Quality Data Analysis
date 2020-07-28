@@ -1,0 +1,30 @@
+#Got the file to skip the comment lines
+import csv
+count = 0
+
+with open('test_data_new_line_format.csv') as csvfile:
+    readCSV = csv.reader(csvfile, delimiter=',')
+    
+    for _ in range(2):
+        next(csvfile)
+    for line in csvfile:
+        #Creating list comprehensions to store data
+            motions = [] #motion
+            lpos = [] #low pulse occupancy
+            ratios = [] #ratios
+            concentrations = [] #concentrations
+    
+            for row in readCSV:
+                motion = row[0]
+                lpo = row[1]
+                ratio = row[2]
+                concentration = row[3]
+        
+                motions.append(motion)
+                lpos.append(lpo)
+                ratios.append(ratio)
+                concentrations.append(concentration)
+        
+    print(lpos)
+    print(motions)
+     
