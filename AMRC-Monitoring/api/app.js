@@ -1,9 +1,12 @@
 //Import Packages
 const express = require('express');
-
+const bodyParser = require('body-parser')
 const http = require('http');
 const os = require('os');
+
 const app = express();
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
 
 //Local modules
 const Mqtt = require('./mqtt');
@@ -42,7 +45,10 @@ app.use((req, res, next) => {
   return next()
 })
 
-//*All below routes are largely for testing
+
+app.post('/ttn',(req,res) => {
+  console.log(req.body)
+})
 
 //TEMP: Dummy test input of temperature data
 app.get('/test-input', (req,res)=> {
@@ -66,13 +72,4 @@ app.get('/temps', function (req, res) {
   }).catch(err => {
     res.status(500).send(err.stack)
   })
-})
-
-//POST Requests
-//TODO: Need to know format of incoming data
-app.post('/input',(req,res) => {
-  let data = req.body
-  
-  let dataPoints = []
-  influx.writePoints(dataPoints)
 })
