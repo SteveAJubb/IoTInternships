@@ -1,0 +1,6 @@
+{
+    "programmer": "AVR ISP",
+    "board": "SparkFun:avr:promicro",
+    "configuration": "cpu=8MHzatmega32U4",
+    "port": "COM6"
+}

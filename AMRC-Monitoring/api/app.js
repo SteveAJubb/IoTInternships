@@ -45,21 +45,28 @@ app.use((req, res, next) => {
   return next()
 })
 
+<<<<<<< HEAD
 
 app.post('/ttn',(req,res) => {
   console.log(req.body)
 })
 
+=======
+//*All below routes are largely for testing
+let oldTemp = 0
+let temperature = Math.random()*100;
+>>>>>>> c5f073d0a6ac8c2687496a96278f7152f24298f3
 //TEMP: Dummy test input of temperature data
 app.get('/test-input', (req,res)=> {
     let timeout = setInterval(() => {
-      let temperature = Math.random()*100;
+      oldTemp = temperature 
+      writeTemp = oldTemp + (Math.random() - 0.5);
       influx.writePoints([{
           measurement: 'Temperature',
           tags:{device: 1},
-          fields: {temperature}
+          fields: {writeTemp}
       }])
-  },50)
+  },500)
 })
 
 //TEMP: See test temp data
