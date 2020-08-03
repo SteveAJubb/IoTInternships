@@ -3,7 +3,7 @@
 Used to publish a Things Network uplink message to a mqtt topic.
 ## Installing Packages
 
-###Things Network Node-Red Node
+### Things Network Node-Red Node
 
 A guide for installing the package using npm is available on https://www.npmjs.com/package/node-red-contrib-ttn
 
@@ -39,7 +39,7 @@ A guide for installing the Mosquitto MQTT broker can be found here: https://mosq
 * Enter your mqtt server address (in my case localhost) and port (1883)
 * Click update
 * Choose the topic you wish to publish to (in this case airData)
-
+![mqtt-broker node setup](https://github.com/seth20012/practiceIoT/blob/mqttOut.png)
 ![mqtt-broker node setup](https://github.com/seth20012/practiceIoT/blob/ttn_to_mqtt/brokerNode.png)
 
 ## Testing
