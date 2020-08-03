@@ -1,5 +1,5 @@
-float latCenter = 53.3809;
-float longCenter = -1.4701;
+float LATITUDE_CENTER = 53.3809;
+float LONGITUDE_CENTER = -1.4701;
 
 int getQuadrant(float y, float x) {
 
@@ -25,6 +25,18 @@ int getQuadrant(float y, float x) {
 
 }
 
+void GPSEncode(lat, long){
+
+  int latDiff = round((lat-LATITUDE_CENTER)*(750000/256));
+  int longDiff = round((long-LONGITUDE_CENTER)*(750000/256));
+
+  int quadrant = getQuadrant(latDiff,longDiff);
+
+  byte GPSBytes[3] = {byte(latDiff), byte(longDiff), byte(quadrant)};
+
+  //send bytes over ttn
+}
+
 void setup() {
   // put your setup code here, to run once:
 
@@ -35,5 +47,5 @@ void loop() {
   // get position of bike from sensor
   // can't code yet as don't have sensor
 
-  
+
 }
