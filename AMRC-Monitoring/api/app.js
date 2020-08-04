@@ -46,7 +46,20 @@ app.use((req, res, next) => {
 })
 
 app.post('/ttn',(req,res) => {
-  console.log(req.body)
+  let temp = req.body.payload_fields.temperature;
+  let battery = req.body.payload_fields.battery
+  let dev_id = req.body.dev_id
+  console.log(temp);
+  influx.writePoints([{
+    measurement: 'TemperatrueNode',
+    tags:{device: dev_id},
+    fields: {temp}
+  }]);
+  influx.writePoints([{
+    measurement: 'Battery',
+    tags:{device: dev_id},
+    fields: {battery}
+  }]);
 })
 
 let oldTemp = 0
