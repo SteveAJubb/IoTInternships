@@ -3,6 +3,7 @@ const express = require('express');
 const bodyParser = require('body-parser')
 const http = require('http');
 const os = require('os');
+var ttn = require("ttn")
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -13,11 +14,16 @@ const Mqtt = require('./mqtt');
 const mqtt = new Mqtt("mqtt://test.mosquitto.org");
 const Influx = require('./databases/database');
 
+
 //App Constants
 const DATABASE_NAME = 'sensor_data';
 const API_PORT = 3001;
 
 const influx = Influx.Init(DATABASE_NAME)
+
+//TTN application stuff - THIS IS UNSECURE CODE - should make use of hidden params but fine for now
+var appID = "fretwell-brown-pitch-in"
+var accessKey = "ttn-account-v2.5QQQCr8sUiCur1ofu1tAchi7SMy-9j6BR9uaHoiLVB8"
 
 
 //Connect to mqtt broker
@@ -37,6 +43,18 @@ influx.getDatabaseNames()
   .catch(err => {
     console.error(`Error creating Influx database!`);
     console.log(err);
+  })
+
+ttn.data(appID, accessKey)
+  .then(function (client) {
+    client.on("uplink", function (devID, payload) {
+      console.log("Received uplink from ", devID)
+      console.log(payload)
+    })
+  })
+  .catch(function (error) {
+    console.error("Error", error)
+    process.exit(1)
   })
 
 
