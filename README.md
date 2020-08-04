@@ -89,6 +89,10 @@ A typical JSON input into InfluxDB might look something like this:
     }
 
 ```
+Here is the query that I pass to the database:
+
+[Query](https://github.com/SteveAJubb/IoTInternships/blob/assetTracking/mapQuery.png)
+To use the table method in the Worldmap Panel you will also need to configure some settings in the Panel tab. Under Map Data Options select 'table' and then select an aggregation that works best for you (I use current). Scroll down to the Field Mapping Options and set the Table Query Format to 'coordinates'. You can also change how points will be displayed on the map in the settings panel also.
 
 ### Grafana Trackmap Plugin
 
