@@ -71,7 +71,10 @@ I would recommend using this https://grafana.com/docs/grafana/latest/getting-sta
 
 ### Grafana WorldMap Plugin
 
-Documentation for the WorldMap Panel plugin in can be found at this website https://grafana.com/grafana/plugins/grafana-worldmap-panel. For my purposes, I only ever used the table query method. Here you can also find how to install the plugin correctly. For this to work, objects need to be passed to InfluxDB with two tags (one for latitude and longitude), and a field with some kind of metric value. For my purposes this was the NO2 levels in the air. NOTE: It is EXTREMELY important that you use an ALIAS in your query to influx. This ALIAS should tell Grafana to select your data AS METRIC. This METRIC label is what the WorldMap panel sees when displaying your data on the map.
+![Worldmap](https://github.com/SteveAJubb/IoTInternships/blob/assetTracking/airData.png)
+
+
+Documentation for the WorldMap Panel plugin can be found at this website https://grafana.com/grafana/plugins/grafana-worldmap-panel. For my purposes, I only ever used the table query method. Here you can also find how to install the plugin correctly. For this to work, objects need to be passed to InfluxDB with two tags (one for latitude and longitude), and a field with some kind of metric value. For my purposes this was the NO2 levels in the air. NOTE: It is EXTREMELY important that you use an ALIAS in your query to influx. This ALIAS should tell Grafana to select your data AS METRIC. This METRIC label is what the WorldMap panel sees when displaying your data on the map.
 
 A typical JSON input into InfluxDB might look something like this:
 
@@ -91,7 +94,7 @@ A typical JSON input into InfluxDB might look something like this:
 ```
 Here is the query that I pass to the database:
 
-[Query](https://github.com/SteveAJubb/IoTInternships/blob/assetTracking/mapQuery.png)
+![Query](https://github.com/SteveAJubb/IoTInternships/blob/assetTracking/mapQuery.png)
 To use the table method in the Worldmap Panel you will also need to configure some settings in the Panel tab. Under Map Data Options select 'table' and then select an aggregation that works best for you (I use current). Scroll down to the Field Mapping Options and set the Table Query Format to 'coordinates'. You can also change how points will be displayed on the map in the settings panel also.
 
 ### Grafana Trackmap Plugin
@@ -104,6 +107,8 @@ SELECT "time" AS "time_index", "latitude" AS "lat", "longitude" AS "lon" FROM "l
 ```
 
 From the settings menu you can display that data as a heatmap, antpath, or hexbin.
+
+![Heatmap](https://github.com/SteveAJubb/IoTInternships/blob/assetTracking/heatMap.png)
 
 A typical JSON input into InfluxDB might look something like this:
 
