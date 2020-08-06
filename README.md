@@ -3,7 +3,15 @@
 Used to publish a Things Network uplink message to a mqtt topic.
 ## Installing Packages
 
-### Things Network Node-Red Node
+### Installing Node-Red
+
+Before installing Node-Red you will first need to install:
+* Node.js: https://nodejs.org/en/download/.
+* Git: https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
+
+Node-Red can then be installed and run locally using: https://nodered.org/docs/getting-started/local
+
+#### Things Network Node-Red Node
 
 A guide for installing the package using npm is available on https://www.npmjs.com/package/node-red-contrib-ttn
 
