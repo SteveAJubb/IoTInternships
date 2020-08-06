@@ -6,7 +6,7 @@ Used to publish a Things Network uplink message to a mqtt topic.
 ### Installing Node-Red
 
 Before installing Node-Red you will first need to install:
-* Node.js: https://nodejs.org/en/download/.
+* Node.js: https://nodejs.org/en/download/ (although I used this guide for Ubuntu: https://tecadmin.net/install-latest-nodejs-npm-on-ubuntu/)
 * Git: https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
 
 Node-Red can then be installed and run locally using: https://nodered.org/docs/getting-started/local
