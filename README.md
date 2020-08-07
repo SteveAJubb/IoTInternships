@@ -53,6 +53,8 @@ Options are selected by un-commenting the settings that you want so for our purp
 ## Configuring the Device
 The last step is to configure the example sketch. This step will be different depending on the device used. For this example a ESP32 LoRa Device is used. Below is a picture of what you will see on the TTN console. The format of the EUI's is important and can be changed using the buttons highlighted.
 Normally this information should not be shared, however this is device is only used for example. 
+
+![Image of TTN Info](https://github.com/SteveAJubb/IoTInternships/blob/Asset-Security/LoraWan%20and%20TTN/Guide%20Pictures/Device_Overview.png)
     
     // This EUI must be in little-endian format, so least-significant-byte
     // first. When copying an EUI from ttnctl output, this means to reverse
@@ -84,3 +86,5 @@ The next and final step is to change the pin mapping used in the code. This is t
 ## Sending Hello World!
 
 The code can now be uploaded to your ESP32 device. The Serial monitor can be used to see the current status. A successful joining the network should look similar to the image below.
+
+![Image of Serial Output](https://github.com/SteveAJubb/IoTInternships/blob/Asset-Security/LoraWan%20and%20TTN/Guide%20Pictures/Serial_Output.png)
