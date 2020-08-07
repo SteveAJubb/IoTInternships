@@ -95,7 +95,7 @@ $ influx
 
 In its most basic form, the node-red flow could simply join the ttn uplink node to the InfluxDB output node. This would take the payload of the ttn uplink message (msg.payload) and input this information as fields into InfluxDB. Meaning that whenever a message is sent in, it will be piped through node-red and into InfluxDB. InfluxDB would then automatically timestamp the data and make useable in a time-series format. In practice you may want to complicate the flows by changing the message, joining it with another message, delaying messages etc. However, I would recommend always having a debug node available to print the incoming ttn uplink message to the debug panel in node-red, the allows you to see what is going on in more detail and understand things better.
 
-![Configuring Node-Red flows](https://github.com/seth20012/practiceIoT/blob/ttn_to_influx_via_nodered/flows.png)
+![Configuring Node-Red flows](https://github.com/SteveAJubb/IoTInternships/blob/ttn_to_influx_via_nodered/flows.png)
 
 #### Things Network Uplink Node
 
