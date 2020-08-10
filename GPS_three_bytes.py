@@ -18,8 +18,8 @@
 
 # arbritrary geographical center
 # using Sheffield central for this application
-LATITUDE_CENTER = 53.380904
-LONGITUDE_CENTER = -1.470084
+LATITUDE_CENTER = 53.38
+LONGITUDE_CENTER = -1.47
 
 # uses cartesian coordinates as input
 # based on the sign of each it will return the quadrant a point is located
@@ -49,8 +49,8 @@ def encodeGPS(lat,long):
 
     # find distance between the point and the center
     # convert to unsigned bytes
-    latDiff = round((lat-LATITUDE_CENTER)*(750000/256))
-    longDiff = round((long-LONGITUDE_CENTER)*(750000/256))
+    latDiff = round((lat-LATITUDE_CENTER)*(6000))
+    longDiff = round((long-LONGITUDE_CENTER)*(6000))
 
     # from signs of distances find quadrant
     quadrant = getQuadrant(latDiff, longDiff)
@@ -69,22 +69,22 @@ def decodeGPS(GPSBytes):
 
     if (quadrantDecoded == 1):
 
-        latDecoded = round((LATITUDE_CENTER + GPSBytes[0]/(750000/256)),4)
-        longDecoded = round((LONGITUDE_CENTER + GPSBytes[1]/(750000/256)),4)
+        latDecoded = round((LATITUDE_CENTER + GPSBytes[0]/(6000)),5)
+        longDecoded = round((LONGITUDE_CENTER + GPSBytes[1]/(6000)),5)
 
     elif (quadrantDecoded == 2):
 
-        latDecoded = round((LATITUDE_CENTER + GPSBytes[0]/(750000/256)),4)
-        longDecoded = round((LONGITUDE_CENTER - GPSBytes[1]/(750000/256)),4)
+        latDecoded = round((LATITUDE_CENTER + GPSBytes[0]/(6000)),5)
+        longDecoded = round((LONGITUDE_CENTER - GPSBytes[1]/(6000)),5)
 
     elif (quadrantDecoded == 3):
 
-        latDecoded = round((LATITUDE_CENTER - GPSBytes[0]/(750000/256)),4)
-        longDecoded = round((LONGITUDE_CENTER - GPSBytes[1]/(750000/256)),4)
+        latDecoded = round((LATITUDE_CENTER - GPSBytes[0]/(6000)),5)
+        longDecoded = round((LONGITUDE_CENTER - GPSBytes[1]/(6000)),5)
 
     elif (quadrantDecoded == 4):
 
-        latDecoded = round((LATITUDE_CENTER - GPSBytes[0]/(750000/256)),4)
-        longDecoded = round((LONGITUDE_CENTER + GPSBytes[1]/(750000/256)),4)
+        latDecoded = round((LATITUDE_CENTER - GPSBytes[0]/(6000)),5)
+        longDecoded = round((LONGITUDE_CENTER + GPSBytes[1]/(6000)),5)
 
     return latDecoded,longDecoded
