@@ -18,7 +18,7 @@ A guide for installing the package using npm is available on https://www.npmjs.c
 
 Influx provides a general downloads page that should work for any system: https://portal.influxdata.com/downloads/
 However, I found it simple to install on Ubuntu using this guide: https://websiteforstudents.com/how-to-install-influxdb-on-ubuntu-18-04-16-04/
-
+So far this guide only covers the regular version on InfluxDB. If you are using Influx 2.0 you will need to adapt this guide to suit your needs.
 ## Usage
 
 ### InfluxDB
@@ -40,6 +40,7 @@ It uses similar syntax to SQL. Ex:
 ```
 
 One important thing to note is that data of a similar type is linked through a shared 'measurement' (specified when inputting the infomation to InfluxDB in whatever way). Measurements usually contain data fields and classification tags. Ex:
+Note the you could only use this code if there was already data within the database.
 
 ```
 
@@ -116,8 +117,8 @@ Information about installing and seting up the node can be found here: https://w
 
 In my case I have created a database in InfluxDB called trackmap, replace this in the database input box as you configure the node. I have also specified the 'measurement' (carTrack) that I want the data to be classified under by InfluxDB. By specifying a 'measurement' for the information coming in, this greatly helps InfluxDB to access and categorise that data later on. The measurement could be anything but should preferably be something that relates to what you are measuring, Ex. location, airQuality... I have also provided a username and password for InfluxDB; however, by default InfluxDB is not password protected so it can be left blank.
 
-![Influx Node](https://github.com/SteveAJubb/IoTInternships/blob/ttn_to_influx_via_node_red/influx_out.png)
-![Influx Config](https://github.com/SteveAJubb/IoTInternships/blob/ttn_to_influx_via_node_red/influx_node_config.png)
+![Influx Node](https://github.com/SteveAJubb/IoTInternships/blob/ttn_to_influx_via_nodered/influx_out.png)
+![Influx Config](https://github.com/SteveAJubb/IoTInternships/blob/ttn_to_influx_via_nodered/influx_node_config.png)
 
 
 
