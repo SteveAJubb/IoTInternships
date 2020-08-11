@@ -112,9 +112,14 @@ More information about the Things Network node can be found here: https://github
 
 #### InfluxDB Output Node
 
-Information about installing and seting up the node can be found here: https://www.thethingsnetwork.org/labs/story/store-and-visualize-data-using-influxdb-and-grafana/ under 'Setup InfluxDB node on Node-Red'
+Information about installing and seting up the node can be found here: https://www.thethingsnetwork.org/labs/story/store-and-visualize-data-using-influxdb-and-grafana/ under 'Setup InfluxDB node on Node-Red'. This also provides a brief example setup using an InfluxDB database named ttndb. 
 
-In this example they have created a database in InfluxDB called ttndb, replace this in the database input box as you configure the node. One thing I would add to this guide is the specification of a 'measurement' in the properties tab. By specifying a 'measurement' for the information coming in, this greatly helps InfluxDB to access and categorise that data later on. The measurement could be anything but should preferably be something that relates to what you are measuring, Ex. location, airQuality... 
+In my case I have created a database in InfluxDB called trackmap, replace this in the database input box as you configure the node. I have also specified the 'measurement' (carTrack) that I want the data to be classified under by InfluxDB. By specifying a 'measurement' for the information coming in, this greatly helps InfluxDB to access and categorise that data later on. The measurement could be anything but should preferably be something that relates to what you are measuring, Ex. location, airQuality... I have also provided a username and password for InfluxDB; however, by default InfluxDB is not password protected so it can be left blank.
+
+![Influx Node](https://github.com/SteveAJubb/IoTInternships/blob/ttn_to_influx_via_node_red/influx_out.png)
+![Influx Config](https://github.com/SteveAJubb/IoTInternships/blob/ttn_to_influx_via_node_red/influx_node_config.png)
+
+
 
 ## Viewing the Information
 
