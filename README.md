@@ -106,6 +106,8 @@ SELECT "time" AS "time_index", "latitude" AS "lat", "longitude" AS "lon" FROM "<
 
 ```
 
+NOTE: You need to select the data as a table rather than a time series in the query settings.
+
 From the settings menu you can display that data as a heatmap, antpath, or hexbin.
 
 ![Heatmap](https://github.com/SteveAJubb/IoTInternships/blob/assetTracking/heatMap.png)
