@@ -102,7 +102,7 @@ To use the table method in the Worldmap Panel you will also need to configure so
 Information and installation guides may be found here https://grafana.com/grafana/plugins/alexandra-trackmap-panel. Note that there is another panel by the same name but with less features. To use this panel there needs to be objects that contain two fields, one for longitude, and one for latitude. It took me a while to get the Grafana query right for this plugin but I found this one to work a charm: 
 
 ```
-SELECT "time" AS "time_index", "latitude" AS "lat", "longitude" AS "lon" FROM "location" WHERE $timeFilter GROUP BY time_index fill(null)
+SELECT "time" AS "time_index", "latitude" AS "lat", "longitude" AS "lon" FROM "<MEASUREMENT>" WHERE $timeFilter GROUP BY time_index fill(null)
 
 ```
 
