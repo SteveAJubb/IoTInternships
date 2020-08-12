@@ -1,3 +1,5 @@
+# Note that this is only useful for very specific applications. The Things Network can directly connect to MQTT without node-red. I use node-red to access the data and then pass it to MQTT making this application a bit redundant.
+
 # Receiving Things Network Messages on Mosquitto using Node-Red
 
 Used to publish a Things Network uplink message to a mqtt topic.
@@ -21,12 +23,22 @@ A guide for installing the Mosquitto MQTT broker can be found here: https://mosq
 
 ## Setup Flows
 
+To start node-red open a terminal or command line and enter:
+
+```
+
+$ node-red
+
+```
+
+Then go to the webpage http://127.0.0.1:1880 in your browser. This is where you configure the node-red flows. A simple introductory guide to node-red flows can be found here: https://nodered.org/docs/tutorials/
+
+![Sample Flows](https://github.com/seth20012/practiceIoT/blob/ttn_to_mqtt/nodeRed.png)
+
 * Start and open node-red
 * Drag the ttn-uplink node onto the flow
 * Connect this to a debug node to print incoming messages to the debug panel
 * Add another connection to the mqtt out node (renamed airData in this case)
-
-![Sample Flows](https://github.com/seth20012/practiceIoT/blob/ttn_to_mqtt/nodeRed.png)
 
 ## Configuring Nodes
 
