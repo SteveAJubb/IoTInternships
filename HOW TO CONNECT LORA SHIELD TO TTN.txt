@@ -1,0 +1,19 @@
+HOW TO CONNECT DRAGINO LORAWAN SHIELD TO TTN USING ABP
+Install LMIC Library in Arduino IDE i.e open IDE--> sketch--> Include Library-->Manage Library.
+In line 659 in radio.c in one of the source files of the LMIC Library, add "static" at the start.
+To get source file of LMIC Library Navigate to C:\Users\yourUserName\Documents\Arduino\libraries\arduino-lmic-master\src\lmic.
+Then open the website https://github.com/SensorsIot/LoRa/blob/master/Nodes/Dragino/HelloWorld/HelloWorld.ino copy and paste to Arduino IDE.
+Then change the pin mapping to: 
+const lmic_pinmap lmic_pins = {
+    .nss = 10,
+    .rxtx = LMIC_UNUSED_PIN,
+    .rst = 9,
+    .dio = {2, 6, 7},
+}
+in the first few lines of code the network key, device address and application key need to be added to the code.
+To get this information you need to go to the thing network website and create an application in your console.
+Ensure the activation method is ABP.
+Under the application go to register device to generate this information.
+Copy the information in the correct format to your example code.
+Then run.
+
