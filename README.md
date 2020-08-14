@@ -27,7 +27,7 @@ In order to test the previous setup, an ESP 8266 standalone board and a temperat
 
 The following diagram displays the board and wiring confiugration used:
 
-<img src="ok.png" width="300" >
+<img src="Wiring/ESP8266.png" width="300" >
 
 The Arduino sketch SendSensorData.ino uses this board to relay the data over wifi and MQTT. (Correct board configuration for the ESP8266 and libraries must be used.)
 
