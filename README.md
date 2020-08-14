@@ -36,7 +36,7 @@ The python script InfluxdbSetup.py must be ran on the raspberry pi to listen and
 
 ### Dashboard Display
 
-1. start grafana 
+1. Start grafana 
 > sudo service grafana-server start
 2. Access grafana from your browser 
 > http://localhost:8086/login
@@ -44,4 +44,36 @@ The python script InfluxdbSetup.py must be ran on the raspberry pi to listen and
 4. Change password
 5. Choose Influxdb as default data source.
 6. Now you can create a dashboard, add panels and visualize your data appropriately.
+
+## Connecting LORA32u4 II to TTN
+
+Now that the backend successfully works, we need to connect a LORA node to The Things Network, publish onto the broker to store and display the data.
+
+### Register TTN Device
+
+1. First you will need to create an application on The Things Network by following [these instructions] (https://www.thethingsnetwork.org/docs/applications/add.html)
+2. Then you will need to register a device by following [this](https://www.thethingsnetwork.org/docs/devices/registration.html), ensure you are using OTAA due to the lack of sufficient security ABP provides.
+
+### Adafruit Feather 32u4 II
+
+Now that the application and device have been setup, we need to configure the Hardware and IDE. This Adafruit Feather board is a standalone board which uses the Arduino IDE. It has a LORA radio tranciever as well as an ATMEGA32 on board.
+
+1. Open the Arduino IDE and go to the Boards manager, Install 'Adafruit AVR Boards'.
+2. Open the library manager and install the MCCI LMIC Library.
+3. Connect the board to your PC using a micro USB cable (make sure the cable has data lines and isnt power only).
+4. Now we must map the pins of the LORA chip to the board pins. So we should connect pin 6 to DIO 1 as shown in the following diagram:
+
+<img src="Wiring/Adafruit-Feather.png" width="300" >
+
+**The connection of this pin is required for LMIC and for the onEvent() function signaling of EV_TXCOMPLETE to be triggered/fired, otherwise the onEvent() funciton is never called.**
+
+> const lmic_pinmap lmic_pins = {
+    .nss = 8,
+    .rxtx = LMIC_UNUSED_PIN,
+    .rst = 4,
+    .dio = {7, 6 , LMIC_UNUSED_PIN}
+};
+
+5. Run the OTAA script on the board.
+
 
