@@ -31,5 +31,17 @@ The following diagram displays the board and wiring confiugration used:
 
 The Arduino sketch SendSensorData.ino uses this board to relay the data over wifi and MQTT. (Correct board configuration for the ESP8266 and libraries must be used.)
 
-The python script InfluxdbSetup.py must be ran on the raspberry pi to listen and store the data. 
+The python script InfluxdbSetup.py must be ran on the raspberry pi to listen and store the data on influxdb.
+
+
+### Dashboard Display
+
+1. start grafana 
+> sudo service grafana-server start
+2. Access grafana from your browser 
+> http://localhost:8086/login
+3. Enter Username and password (Initially both set to admin)
+4. Change password
+5. Choose Influxdb as default data source.
+6. Now you can create a dashboard, add panels and visualize your data appropriately.
 
