@@ -49,11 +49,11 @@ ttn.data(appID, accessKey)
     client.on("uplink", function (devID, payload) {
       console.log("Received uplink from ", devID)
       console.log(payload)
+      console.log("test")
     })
   })
   .catch(function (error) {
     console.error("Error", error)
-    process.exit(1)
   })
 
 
