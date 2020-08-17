@@ -3,7 +3,7 @@ const express = require('express');
 const bodyParser = require('body-parser')
 const http = require('http');
 const os = require('os');
-var ttn = require("ttn")
+const ttn = require("ttn")
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -22,9 +22,8 @@ const API_PORT = 3001;
 const influx = Influx.Init(DATABASE_NAME)
 
 //TTN application stuff - THIS IS UNSECURE CODE - should make use of hidden params but fine for now
-var appID = "fretwell-brown-pitch-in"
-var accessKey = "ttn-account-v2.5QQQCr8sUiCur1ofu1tAchi7SMy-9j6BR9uaHoiLVB8"
-
+const appID = "fretwell-brown-pitch-in"
+const accessKey = "ttn-account-v2.5QQQCr8sUiCur1ofu1tAchi7SMy-9j6BR9uaHoiLVB8"
 
 //Connect to mqtt broker
 mqtt.connect();
