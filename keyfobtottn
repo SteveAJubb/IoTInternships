@@ -1,0 +1,261 @@
+/* This code was written by Kennedy Dike and Onyeka Obediegwu. 
+ *  No Copyright for this code
+ *  This code sends the information of a card to TTN
+ */
+
+
+
+
+
+
+#include <lmic.h>
+#include <hal/hal.h>
+#include <SPI.h>
+#include <MFRC522.h>
+//#include <credentials.h>
+
+#define SS_PIN 53
+#define RST_PIN 5
+MFRC522 mfrc522(53, 5);   // Create MFRC522 instance.
+
+
+#ifdef CREDENTIALS
+static const u1_t NWKSKEY[16] = NWKSKEY1;
+static const u1_t APPSKEY[16] = APPSKEY1;
+static const u4_t DEVADDR = DEVADDR1;
+#else
+static const u1_t NWKSKEY[16] = { 0x7D, 0x81, 0xD0, 0x85, 0x1F, 0x3E, 0x9C, 0x5B, 0xC4, 0x8E, 0x46, 0x45, 0x06, 0x95, 0xAF, 0x21 };
+static const u1_t APPSKEY[16] = { 0x3B, 0xD7, 0x55, 0x28, 0xE0, 0x3C, 0x4A, 0x59, 0x3A, 0x94, 0x51, 0x55, 0xBF, 0x9A, 0x64, 0x2D };
+static const u4_t DEVADDR = 0x226011137;
+#endif
+
+// These callbacks are only used in over-the-air activation, so they are
+// left empty here (we cannot leave them out completely unless
+// DISABLE_JOIN is set in config.h, otherwise the linker will complain).
+void os_getArtEui (u1_t* buf) { }
+void os_getDevEui (u1_t* buf) { }
+void os_getDevKey (u1_t* buf) { }
+
+static osjob_t sendjob;
+
+// Schedule TX every this many seconds (might become longer due to duty
+// cycle limitations).
+const unsigned TX_INTERVAL = 20;
+
+// Pin mapping Dragino Shield
+const lmic_pinmap lmic_pins = {
+    .nss = 10,
+    .rxtx = LMIC_UNUSED_PIN,
+    .rst = 9,
+    .dio = {2, 6, 7},
+};
+
+
+int reader() // this function sends a variable to the dosend function. The variable sent determines the message that goes to  TTN
+{
+int x;
+
+  if ( ! mfrc522.PICC_IsNewCardPresent()) 
+  {
+    //Serial.println("NOTHING TO BE PRINTED");
+  }
+  // Select one of the cards
+ if ( ! mfrc522.PICC_ReadCardSerial()) 
+  {
+    //Serial.println("NOTHING TO BE PRINTED");
+
+  }
+
+  
+  //Show UID on serial monitor
+  //Serial.println("Approximate reader...");
+  //Serial.print("UID tag :");
+
+
+  
+  String content= "";
+  byte letter;
+  for (byte i = 0; i < mfrc522.uid.size; i++) 
+  {
+      // Serial.print(mfrc522.uid.uidByte[i] < 0x10 ? " 0" : " ");
+      // Serial.print(mfrc522.uid.uidByte[i], HEX);
+     content.concat(String(mfrc522.uid.uidByte[i] < 0x10 ? " 0" : " "));
+     content.concat(String(mfrc522.uid.uidByte[i], HEX));
+  }
+
+  
+  //  Serial.println();
+  //  Serial.print("Message : ");
+
+  
+  content.toUpperCase();
+
+  
+  if (content.substring(1) == "E5 11 C3 22") //Return 1 if the card belongs to Tom
+          
+          {
+                Serial.println("THIS IS TOM");
+                Serial.println();
+                 delay(1000);
+                return x=1;
+        
+          }
+ 
+     if (content.substring(1) == "B6 B8 A2 2B") //Return 2 if the card belongs to Harry
+          
+          {
+                Serial.println("THIS IS HARRY");
+                Serial.println();
+                delay(1000);
+                return x=2;
+        
+          }
+
+   if (content.substring(1) == "42 E9 B4 0B") //Return 3 if the card belongs to Angel
+          
+          {
+                Serial.println("THIS IS ANGEL");
+                Serial.println();
+                delay(1000);
+                return x=3;
+        
+          }
+
+  else
+          {
+                Serial.println("NO CARD PRESENT. PLEASE REUPLOAD CODE");
+                //delay(3000);
+                return x=0;
+                
+           } // If no card is present, do not return any variable
+
+}
+ 
+
+
+void onEvent (ev_t ev) 
+{
+    if (ev == EV_TXCOMPLETE) 
+    
+    {
+        Serial.println(F("EV_TXCOMPLETE (includes waiting for RX windows)"));
+        // Schedule next transmission
+        os_setTimedCallback(&sendjob, os_getTime()+sec2osticks(TX_INTERVAL), do_send);
+    
+    }
+}
+
+void do_send(osjob_t* j){
+    int a;
+
+    a=reader(); // Get the variable from the reader
+
+    if (a==1 || a==2 || a==3)
+      {
+    
+              if (a==1) // if it is Tom's card send this to TTN
+              {
+                       static uint8_t message[]="THIS IS Tom";
+                
+                       // Check if there is not a current TX/RX job running
+                    if (LMIC.opmode & OP_TXRXPEND) {
+                        Serial.println(F("OP_TXRXPEND, not sending"));
+                    } 
+                    else {
+                        // Prepare upstream data transmission at the next possible time.
+                        LMIC_setTxData2(1, message, sizeof(message)-1, 0);
+                          //Serial.println(data);
+                        Serial.println(F("Sending uplink  1 packet..."));
+                    }
+                    // Next TX is scheduled after TX_COMPLETE event.
+              }
+          
+              
+              if (a==2 ) // if it is Harry's card send this to TTN
+              {
+                       static uint8_t message[]="THIS IS HARRY";
+                    
+                    // Check if there is not a current TX/RX job running
+                    if (LMIC.opmode & OP_TXRXPEND) {
+                        Serial.println(F("OP_TXRXPEND, not sending"));
+                    } 
+                    else {
+                        // Prepare upstream data transmission at the next possible time.
+                        LMIC_setTxData2(1, message, sizeof(message)-1, 0);
+                          //Serial.println(data);
+                        Serial.println(F("Sending uplink 2 packet..."));
+                    }
+                    // Next TX is scheduled after TX_COMPLETE event.
+              }
+
+              if (a==3 ) // if it is Angel's card send this to TTN
+              {
+                       static uint8_t message[]="THIS IS Angel";
+                    
+                    // Check if there is not a current TX/RX job running
+                    if (LMIC.opmode & OP_TXRXPEND) {
+                        Serial.println(F("OP_TXRXPEND, not sending"));
+                    } 
+                    else {
+                        // Prepare upstream data transmission at the next possible time.
+                        LMIC_setTxData2(1, message, sizeof(message)-1, 0);
+                          //Serial.println(data);
+                        Serial.println(F("Sending uplink 3 packet..."));
+                    }
+                    // Next TX is scheduled after TX_COMPLETE event.
+              }
+
+              
+
+      }
+
+      
+
+}
+
+
+
+ 
+
+
+void setup() {
+    
+    Serial.begin(115200);
+
+    SPI.begin();      // Initiate  SPI bus
+    mfrc522.PCD_Init();   // Initiate MFRC522
+    Serial.println("Approximate your card to the reader...");
+    Serial.println();
+
+  
+    Serial.println(F("Starting..."));
+
+    // LMIC init
+    os_init();
+
+    // Reset the MAC state. Session and pending data transfers will be discarded.
+    LMIC_reset();
+
+    // Set static session parameters.
+    LMIC_setSession (0x1, DEVADDR, NWKSKEY, APPSKEY);
+
+    // Disable link check validation
+    LMIC_setLinkCheckMode(0);
+
+    // TTN uses SF9 for its RX2 window.
+    LMIC.dn2Dr = DR_SF9;
+
+    // Set data rate and transmit power for uplink (note: txpow seems to be ignored by the library)
+    LMIC_setDrTxpow(DR_SF12,14);
+
+    // Start job
+     do_send(&sendjob);
+}
+
+
+
+void loop()
+{
+             os_runloop_once();
+
+}
