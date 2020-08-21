@@ -101,7 +101,7 @@ Both the Application ID and Access Key can be found in the TTN Console as shown 
 ### Grafana
 To be able to read information from InfluxDB, the desired bucket must be added as a data source on Grafana. By navigating through Grafana's UI, the needed information such as organization name and token can be added as shown below.
 
-![Grafana-Datasource-Steps](https://github.com/SteveAJubb/IoTInternships/blob/Energy-Monitor-with-InfluxDBCloud/Grafana-Datasource-Steps.png)
+![Grafana-Datasource-Steps](https://github.com/SteveAJubb/IoTInternships/blob/Energy-Monitor-with-InfluxDBCloud/Grafana-Datasource-Steps.PNG)
 
 It is worth noting that the cloud version of InfluxDB (v2.0) uses Flux as a query language, whereas older versions (v1.x) use an SQL-like language known as InfluxQL. 
 ## Run
