@@ -51,7 +51,7 @@ Finally, open file.conf using Notepad and make sure it is saved as `UTF-8`.
 
 To enable Telegraf to send data to the desired bucket on InfluxDB, the output plugin is configured. By navigating through InfluxDB's UI, replace the corresponding section within the output plugin in file.conf with the automatically generated one under the 'Telegraf' tab on the left-side menu, as shown in the below figure. 
 
-IMAGE
+![Create-Output-Plugin](https://github.com/SteveAJubb/IoTInternships/blob/Energy-Monitor-with-InfluxDBCloud/Create-Output-Plugin.png)
 
 To safeguard the security of your stored data on InfluxDB, a token acts in a similar way to a password to only enable authorised users to manipulate the database. Therefore, create an 'All Access' token as shown in the figure and use it to replace `$INFLUX_TOKEN` in file.conf within your recently copied output plugin. 
 
