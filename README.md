@@ -46,11 +46,11 @@ CREATE DATABASE RAKAirMonitor
 ### Node-RED
 Node-RED has the advantage of intuitively visualising the management of data by representing it as a flow. The sample flow created for this guide involved retreiving data from TTN, changing it to a numeric format, and pushing it to InfluxDB. 
 
-IMAGE
+![Flow_Node-Red](https://github.com/SteveAJubb/IoTInternships/blob/Air-Quality-Monitor-with-NodeRED/README_Images/Flow_Node-Red.PNG)
 
 To create the flow, you must first install the palettes for TTN and InfluxDB.
 
-IMAGE
+![Palettes_Node-red](https://github.com/SteveAJubb/IoTInternships/blob/Air-Quality-Monitor-with-NodeRED/README_Images/Palettes_Node-red.PNG)
 
 Originally, the output from TTN for all the measurements was in a character format. eg.
 ```
@@ -67,12 +67,12 @@ Assuming InfluxDB has been started, once the deploy button is hit, data will be 
 ### Grafana
 To be able to read information from InfluxDB, the desired database must be added as a data source on Grafana. By navigating through Grafana's UI, the necessary information can be added as shown below.
 
-IMAGE
+![RAK_Grafana Steps](https://github.com/SteveAJubb/IoTInternships/blob/Air-Quality-Monitor-with-NodeRED/README_Images/RAK_Grafana Steps.PNG)
 
 Finally, by selecting the correct data source, a dashboard can be created as shown below. 
 
-IMAGE
+![Final Grafana RAKAirMonitor Dashboard](https://github.com/SteveAJubb/IoTInternships/blob/Air-Quality-Monitor-with-NodeRED/README_Images/Final Grafana RAKAirMonitor Dashboard.PNG)
 
 Only prospective data will be uploaded one at a time (i.e. no historic data will be shown). Therefore, depending on your sensor's upload rate, it might take some time before you can see data points. A useful way to check when data is sent by the sensor is using the TTN Console, as highlighted below. 
 
-IMAGE
+![Data_ttn](https://github.com/SteveAJubb/IoTInternships/blob/Air-Quality-Monitor-with-NodeRED/README_Images/Data_ttn.PNG)
