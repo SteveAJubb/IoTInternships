@@ -67,11 +67,11 @@ Assuming InfluxDB has been started, once the deploy button is hit, data will be 
 ### Grafana
 To be able to read information from InfluxDB, the desired database must be added as a data source on Grafana. By navigating through Grafana's UI, the necessary information can be added as shown below.
 
-![RAK_Grafana Steps](https://github.com/SteveAJubb/IoTInternships/blob/Air-Quality-Monitor-with-NodeRED/README_Images/RAK_Grafana Steps.PNG)
+![RAK_Grafana Steps](https://github.com/SteveAJubb/IoTInternships/blob/Air-Quality-Monitor-with-NodeRED/README_Images/RAK_Grafana_Steps.PNG)
 
 Finally, by selecting the correct data source, a dashboard can be created as shown below. 
 
-![Final Grafana RAKAirMonitor Dashboard](https://github.com/SteveAJubb/IoTInternships/blob/Air-Quality-Monitor-with-NodeRED/README_Images/Final Grafana RAKAirMonitor Dashboard.PNG)
+![Final Grafana RAKAirMonitor Dashboard](https://github.com/SteveAJubb/IoTInternships/blob/Air-Quality-Monitor-with-NodeRED/README_Images/Final_Grafana RAKAirMonitor_Dashboard.PNG)
 
 Only prospective data will be uploaded one at a time (i.e. no historic data will be shown). Therefore, depending on your sensor's upload rate, it might take some time before you can see data points. A useful way to check when data is sent by the sensor is using the TTN Console, as highlighted below. 
 
