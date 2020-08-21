@@ -69,7 +69,7 @@ For reference, the input plugin begins on line 607 in the attached configuration
 
 InfluxDB follows a specific [line protocol](https://v2.docs.influxdata.com/v2.0/reference/syntax/line-protocol/#:~:text=InfluxDB%20uses%20line%20protocol%20to,timestamp%20of%20a%20data%20point.&text=Lines%20separated%2), thus the csv file must be formatted accordingly. Below is a snippet of the sample csv file used as an example in this guide. 
 
-![Excel_Format](https://github.com/SteveAJubb/IoTInternships/blob/Energy-Monitor-with-InfluxDBCloud/Excel_Format.png)
+![Excel_Format](https://github.com/SteveAJubb/IoTInternships/blob/Energy-Monitor-with-InfluxDBCloud/Excel_Format.PNG)
 
 In this example, the desired data was the generation in kW. As a minimum, the measurement name, data and timestamp were defined. This meant that the first column was to be disregarded by Telegraf when retrieving the data. 
 
@@ -96,7 +96,7 @@ password = "REPLACE_WITH_ACCESS_KEY"
 ```
 Both the Application ID and Access Key can be found in the TTN Console as shown below. 
 
-![MQTT_Data_Steps](https://github.com/SteveAJubb/IoTInternships/blob/Energy-Monitor-with-InfluxDBCloud/MQTT_Data_Steps.png)
+![MQTT_Data_Steps](https://github.com/SteveAJubb/IoTInternships/blob/Energy-Monitor-with-InfluxDBCloud/MQTT_Data_Steps.PNG)
 
 ### Grafana
 To be able to read information from InfluxDB, the desired bucket must be added as a data source on Grafana. By navigating through Grafana's UI, the needed information such as organization name and token can be added as shown below.
@@ -119,7 +119,7 @@ C:\"Program Files"\telegraf\telegraf.exe --config ./file.conf --test
 ```
 This following figure highlights the correct output using the sample csv data attached in this guide.
 
-![Test-Telegraf](https://github.com/SteveAJubb/IoTInternships/blob/Energy-Monitor-with-InfluxDBCloud/Test-Telegraf.png)
+![Test-Telegraf](https://github.com/SteveAJubb/IoTInternships/blob/Energy-Monitor-with-InfluxDBCloud/Test-Telegraf.PNG)
 
 Then run the following command to start pushing data.
 ```
@@ -128,25 +128,25 @@ C:\"Program Files"\telegraf\telegraf.exe --config ./file.conf
 ### InfluxDB Cloud
 For a csv data source, you should be able to view the complete data after a few seconds on InfluxDB's Data explorer by selecting your desired bucket and setting the time range depending on your data's timestamp - (it's best to set it as past 30d and later zoom in manually).
 
-![Data_Explorer_InfluxDB](https://github.com/SteveAJubb/IoTInternships/blob/Energy-Monitor-with-InfluxDBCloud/Data_Explorer_InfluxDB.png)
+![Data_Explorer_InfluxDB](https://github.com/SteveAJubb/IoTInternships/blob/Energy-Monitor-with-InfluxDBCloud/Data_Explorer_InfluxDB.PNG)
 
 However, for live sensor data from TTN, only prospective data will be uploaded one at a time (i.e. no historic data will be shown). Therefore, depending on your sensor's upload rate, it might take some time before you can see data points. A useful way to check when data is sent by the sensor is using the TTN Console, as highlighted below. 
 
-![Data_ttn](https://github.com/SteveAJubb/IoTInternships/blob/Energy-Monitor-with-InfluxDBCloud/Data_ttn.png)
+![Data_ttn](https://github.com/SteveAJubb/IoTInternships/blob/Energy-Monitor-with-InfluxDBCloud/Data_ttn.PNG)
 
 ### Grafana
 
 For Grafana to pull the desired data from InfluxDB, a query in Flux has to be written. As illustrated below, upon selecting the desired dataset, toggling to the script editor tab will automatically generate a query in Flux which can be copied to Grafana when creating the dashboard.
 
-![Flux_Query](https://github.com/SteveAJubb/IoTInternships/blob/Energy-Monitor-with-InfluxDBCloud/Flux_Query.png)
+![Flux_Query](https://github.com/SteveAJubb/IoTInternships/blob/Energy-Monitor-with-InfluxDBCloud/Flux_Query.PNG)
 
 Within Grafana, creating a dashboard is quite straightforward. As shown, upon selecting the correct datasource created earlier, pasting the query generated from InfluxDB will quickly show the data. 
 
-![Grafana_dashboard_steps](https://github.com/SteveAJubb/IoTInternships/blob/Energy-Monitor-with-InfluxDBCloud/Grafana_dashboard_steps.png)
+![Grafana_dashboard_steps](https://github.com/SteveAJubb/IoTInternships/blob/Energy-Monitor-with-InfluxDBCloud/Grafana_dashboard_steps.PNG)
 
 **NOTE**: A common error that can stop data from showing is selecting the wrong time range in Grafana. 
 
 More than a single variable can be added at a time to the same panel by selecting multiple measurements simultaneously on InfluxDB. Furthermore, by configuring the field option overrides, you can control features such as line colour or legend for each variable. 
 
-![Formatting_Dashboard](https://github.com/SteveAJubb/IoTInternships/blob/Energy-Monitor-with-InfluxDBCloud/Formatting_Dashboard.png)
+![Formatting_Dashboard](https://github.com/SteveAJubb/IoTInternships/blob/Energy-Monitor-with-InfluxDBCloud/Formatting_Dashboard.PNG)
 
