@@ -141,13 +141,13 @@ $pip3 install <PACKAGE_NAME>
 This file includes the functionality to access the data within influx, create a list of 'speedPoint' arrays that contain useful information about the movement of the object at a given point, and the ability to write back that data back into influx to then be displayed using Grafana. Using node-red, I triggered the script to take the most recent entry from influx, calculate the speed at that point, and then write this value into influx. This allowed for the creation of a live dashboard within Grafana that displayed the current and past speed of the object being tracked an its position. However, getSpeeds.py can be used to analyse as much as the user requires and can be used with other methods of data display and analysis, such as matplotlib.
 
 ### Node-Red Flows
-[!Flows](https://github.com/SteveAJubb/IoTInternships/blob/assetTracking/speedFlows.png)
+![Flows](https://github.com/SteveAJubb/IoTInternships/blob/assetTracking/speedFlows.png)
 
 This example flow takes uplink data from The Things Network and stores it in influx. After a delay of 5s, it then triggers the getSpeeds.py script configured to take the newest entry, calculate its speed, and then push it to influx for display.
 
 ### Grafana Dashboard
 
-[!Speed Panel](https://github.com/SteveAJubb/IoTInternships/blob/assetTracking/grafanaSpeedPanel.png)
+![Speed Panel](https://github.com/SteveAJubb/IoTInternships/blob/assetTracking/grafanaSpeedPanel.png)
 
 This is an example Grafana dashboard that could be used to monitor the movements of the asset. Note that the position tracking panel could be displayed as a heatmap rather than an antmap.
 
