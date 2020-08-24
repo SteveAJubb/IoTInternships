@@ -81,20 +81,24 @@ A typical JSON input into InfluxDB might look something like this:
 ```
 
    {
-        "measurement": "air.quality",
+        "measurement": "speeds",
         "tags": {
             "latitude": 53.3834567
             "longitude": -1.4589922
         },
         "fields": {
-            "NO2_ppb": 14
+            "speed": 14,
+	    "timeDiff": 10
         }
     }
 
 ```
-Here is the query that I pass to the database:
+Here is the query that I pass to the database using Grafana:
 
-![Query](https://github.com/SteveAJubb/IoTInternships/blob/assetTracking/mapQuery.png)
+```
+SELECT median("speed") AS "metric" , "time" FROM "speeds" WHERE $timeFilter GROUP BY "latitude", "longitude"
+```
+
 To use the table method in the Worldmap Panel you will also need to configure some settings in the Panel tab. Under Map Data Options select 'table' and then select an aggregation that works best for you (I use current). Scroll down to the Field Mapping Options and set the Table Query Format to 'coordinates'. You can also change how points will be displayed on the map in the settings panel also.
 
 ### Grafana Trackmap Plugin
@@ -126,5 +130,25 @@ A typical JSON input into InfluxDB might look something like this:
 
 ```
 
+## Analysing the Data
+
+The script getSpeeds.py contains the initial attempts I have made at analysing the data contained within influxdb. It is a simple script that will take position data from influx and use it to calculate the speed at any given point. To use it, the followin python packages must be installed: influxdb and geopy. This can be done from the command-line using pip.
+
+```
+$pip3 install <PACKAGE_NAME>
+```
+
+This file includes the functionality to access the data within influx, create a list of 'speedPoint' arrays that contain useful information about the movement of the object at a given point, and the ability to write back that data back into influx to then be displayed using Grafana. Using node-red, I triggered the script to take the most recent entry from influx, calculate the speed at that point, and then write this value into influx. This allowed for the creation of a live dashboard within Grafana that displayed the current and past speed of the object being tracked an its position. However, getSpeeds.py can be used to analyse as much as the user requires and can be used with other methods of data display and analysis, such as matplotlib.
+
+### Node-Red Flows
+[!Flows](https://github.com/SteveAJubb/IoTInternships/blob/assetTracking/speedFlows.png)
+
+This example flow takes uplink data from The Things Network and stores it in influx. After a delay of 5s, it then triggers the getSpeeds.py script configured to take the newest entry, calculate its speed, and then push it to influx for display.
+
+### Grafana Dashboard
+
+[!Speed Panel](https://github.com/SteveAJubb/IoTInternships/blob/assetTracking/grafanaSpeedPanel.png)
+
+This is an example Grafana dashboard that could be used to monitor the movements of the asset. Note that the position tracking panel could be displayed as a heatmap rather than an antmap.
 
 
