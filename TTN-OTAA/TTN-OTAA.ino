@@ -72,7 +72,7 @@ static osjob_t sendjob;
 
 // Schedule TX every this many seconds (might become longer due to duty
 // cycle limitations).
-const unsigned TX_INTERVAL = 6;
+const unsigned TX_INTERVAL = 600;
 
 // Pin mapping
 #if defined(ARDUINO_SAMD_FEATHER_M0)
