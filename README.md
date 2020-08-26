@@ -4,7 +4,9 @@
 
 ### InfluxDB
 
-Simple to install. I used https://websiteforstudents.com/how-to-install-influxdb-on-ubuntu-18-04-16-04/ as a guide on how to install it on Ubuntu. This seemed to work well and tells you how to configure InfluxDB so that you can send queries to it using http.
+Influx provides a general downloads page that should work for any system: https://portal.influxdata.com/downloads/
+However, I found it simple to install on Ubuntu using this guide: https://websiteforstudents.com/how-to-install-influxdb-on-ubuntu-18-04-16-04/
+So far this guide only covers the regular version on InfluxDB. If you are using Influx 2.0 you will need to adapt this guide to suit your needs.
 
 ### Grafana
 
@@ -151,4 +153,46 @@ This example flow takes uplink data from The Things Network and stores it in inf
 
 This is an example Grafana dashboard that could be used to monitor the movements of the asset. Note that the position tracking panel could be displayed as a heatmap rather than an antmap.
 
+## Issues and Next Steps
+
+The Grafana worldmap panel frequently encounters an error that reads: ```TypeError: o is undefined```. I have not found a solution to this other than changing the visualisation within the dashboard and then switching back. I usually switch to the unofficial Map Panel visualisation: https://github.com/panodata/grafana-map-panel
+
+There is also error present the GPS device. While stationary the latitude and longitude vary slightly. I have plotted this data into two histograms using matplotlib in Python (installed using ```$pip3 install matplotlib```). Using this data it may be possible to develop a filter to smooth out the data. However, I could not find a method to do this without vastly minimising that change in latitude and longitude while the bike was moving. 
+
+#### Latitude
+
+```
+import matplotlib.pyplot as plt
+
+plt.hist(lat, 100) # lat is a list of reported latitudes from where the device was stationary
+plt.show()
+```
+![Flows](https://github.com/SteveAJubb/IoTInternships/blob/assetTracking/latHist.png)
+
+#### Longitude
+
+```
+import matplotlib.pyplot as plt
+
+plt.hist(long, 100) # long is a list of reported latitudes from where the device was stationary
+plt.show()
+```
+![Flows](https://github.com/SteveAJubb/IoTInternships/blob/assetTracking/longHist.png)
+
+#### Filter
+
+I experimented using the savgol_filter available in SciPy (```$pip3 install scipy```).
+
+```
+import matplotlib.pyplot as plt
+from scipy.signal import savgol_filter
+
+latw = savgol_filter(lat, 71, 9) #numbers can be changed and experimented with
+plt.plot(times,lat, label='Original latitude')
+plt.plot(times,latw, label='Filtered latitude')
+plt.legend()
+plt.title("Latitude Change Over Time")
+plt.show()
+```
+![Flows](https://github.com/SteveAJubb/IoTInternships/blob/assetTracking/latFilter.png)
 
