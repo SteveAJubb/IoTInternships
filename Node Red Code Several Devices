@@ -1,0 +1,77 @@
+//How to extract information from several devices under one TTN application
+
+//In the first Node run this code to extract the device ID from the message string
+function myFunction(needle,finish,haystack) {
+  var str = haystack; 
+  var st = str.search(needle);
+  if (st == -1) return "x";
+  var op = str.substr(st+needle.length);
+  var en = op.search(finish);
+  if (en == -1) return "x";
+  var r = op.substr(0,en);
+  return r;
+}
+
+
+var res1 = {};
+var num = flow.get('num');
+res1.payload = myFunction('"dev_id":"dmc-01-iaq-sensor-','","hardware_serial"',msg.payload);
+if (res1.payload != "x"){
+    flow.set('num',res1);
+    return [res1];
+}
+
+//In another function node write this code to extract the important info in the message
+//Vary the start and finish statements in line 39
+function myFunction(needle,finish,haystack) {
+  var str = haystack; 
+  var st = str.search(needle);
+  if (st == -1) return "x";
+  var op = str.substr(st+needle.length);
+  var en = op.search(finish);
+  if (en == -1) return "x";
+  var r = op.substr(0,en);
+  return r;
+}
+
+var message = flow.get('message');
+var res = {};
+res.payload = myFunction('"payload_fields":',',"metadata"',msg.payload);
+if (res.payload != "x"){
+    flow.set('message', res);
+    return [message];
+}
+
+//Following in from the node extracting the device ID write this code
+var num = flow.get('num');
+return num;
+
+//Then attach a switch node with rules '===' to device IDs
+//For each of the options in the switch node, write a function that recalls the messge
+var message = flow.get('message');
+return message;
+
+//For each option include a json node that always converts to javascript object
+//Then another function node with this code
+msg.payload.barometer = parseFloat(msg.payload.barometer);
+msg.payload.battery=parseFloat(msg.payload.battery);
+msg.payload.gasResistance=parseFloat(msg.payload.gasResistance);
+msg.payload.humidity=parseFloat(msg.payload.humidity);
+msg.payload.temperature=parseFloat(msg.payload.temperature);
+
+var barometer = flow.get('barometer');
+flow.set('barometer',msg.payload.barometer);
+var battery = flow.get('battery');
+flow.set('battery',msg.payload.battery);
+var gasResistance = flow.get('gasResistance',msg.payload.gasResistance);
+flow.set('gasResistance',msg.payload.gasResistance);
+var humidity = flow.get('humidity');
+flow.set('humidity',msg.payload.humidity);
+var temperature = flow.get('temperature');
+flow.set('temperature',msg.payload.temperature);
+return msg;
+
+//Then add an influx node with a different measurement for each option
+
+
+
