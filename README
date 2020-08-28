@@ -1,1 +1,25 @@
-Test
+ESP32 TTN OTAA with LMIC
+
+Pre-requisities:
+
+Add ESP32 to Arduino IDE: 
+https://www.instructables.com/id/Installing-ESP32-on-Arduino-IDE-the-Easy-Method/
+
+Download LMIC library: 
+https://github.com/matthijskooijman/arduino-lmic
+
+May have to find an up-to-date hal.h header file from: 
+https://github.com/mcci-catena/arduino-lmic/tree/master/src/hal
+
+Setup a TTN console and add a device. The device under the console is where APPSKEY etc will be found:
+https://console.thethingsnetwork.org/
+
+
+These sketches will:
+Allow the user to send data periodically or on a trigger event, depending on which sketch the user is working on. 
+Warrning: the sketches are set for the 868MHz band. Change this to the appropriate frequency in your band with the arduino_lmic_hal_configuration.h header file
+These sketches allow for easy connection to TTN and are set up for use with a HC-SR04 sensor. All variables relating to this sensor are marked with comments.
+The message sent is the  variable called mydata. mydata is an array of unsigned integers. Do not attempt to pass long strings into this.
+Understand that editing an element of the mydata array simply changes an integer value, which the user can use to sended coded messages to be decoded at the console.
+
+
