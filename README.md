@@ -67,6 +67,16 @@ Ex. When inputting data to the InfluxDB database a JSON object being inserted wo
 
 ```
 
+NOTE: If you are using Node-Red, connecting the TTN Uplink Node directly to the InfluxDB Out Node transfer the data. However, everything will be parsed as a field by InfluxDB. To specify what should be tags and fields a function node should be placed between them.
+
+```
+payload = [{"<field>": msg.payload.<field>}, {"<tag1>":msg.payload.<tag1>, "<tag2>":msg.payload.<tag2>}];
+msg.payload = payload
+return msg
+```
+
+By default, if the InfluxDB Node receives a list of two objects, it will treat the first as fields and the second as tags. However, in my case this was not necessary as I used Python to send data to InfluxDB for use in the Worldmap Panel.
+
 ### Grafana
 
 I would recommend using this https://grafana.com/docs/grafana/latest/getting-started/getting-started/ from the official Grafana documentation to get yourself started. I found that playing around with things is the best way to start.
@@ -133,8 +143,7 @@ A typical JSON input into InfluxDB might look something like this:
 ```
 
 ## Analysing the Data
-
-The script getSpeeds.py contains the initial attempts I have made at analysing the data contained within influxdb. It is a simple script that will take position data from influx and use it to calculate the speed at any given point. To use it, the followin python packages must be installed: influxdb and geopy. This can be done from the command-line using pip.
+After basic location data is sent to InfluxDB, I then run a Python script that will take the most recent piece of data from InfluxDB, compare it with the one immediately prior, and return a speed. I called this getSpeeds.py and used an Exec node in node-red to trigger it. The script getSpeeds.py contains the initial attempts I have made at analysing the data contained within influxdb. It is a simple script that will take position data from influx and use it to calculate the speed at any given point. To use it, the following python packages must be installed: influxdb and geopy. This can be done from the command-line using pip.
 
 ```
 $pip3 install <PACKAGE_NAME>
