@@ -51,7 +51,7 @@ Now that the backend successfully works, we need to connect a LORA node to The T
 
 ### Register TTN Device
 
-1. First you will need to create an application on The Things Network by following [these instructions] (https://www.thethingsnetwork.org/docs/applications/add.html)
+1. First you will need to create an application on The Things Network by following these [instructions](https://www.thethingsnetwork.org/docs/applications/add.html)
 2. Then you will need to register a device by following [this](https://www.thethingsnetwork.org/docs/devices/registration.html), ensure you are using OTAA due to the lack of sufficient security ABP provides.
 
 ### Adafruit Feather 32u4 II

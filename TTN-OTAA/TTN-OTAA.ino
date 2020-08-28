@@ -35,6 +35,11 @@
 #include <lmic.h>
 #include <hal/hal.h>
 #include <SPI.h>
+#include <Adafruit_Sensor.h>
+#include <Adafruit_BME280.h>
+#include <Wire.h>
+
+ Adafruit_BME280 bme;
 
 //
 // For normal use, we require that you edit the sketch to replace FILLMEIN
@@ -67,7 +72,9 @@ void os_getDevEui (u1_t* buf) { memcpy_P(buf, DEVEUI, 8);}
 static const u1_t PROGMEM APPKEY[16] = { 0x23, 0x7B, 0x47, 0xAB, 0xAD, 0x0F, 0xEF, 0x67, 0x8F, 0x5B, 0x37, 0x17, 0x25, 0x4A, 0x81, 0xDA };
 void os_getDevKey (u1_t* buf) {  memcpy_P(buf, APPKEY, 16);}
 
-static uint8_t mydata[] = "Hello";
+//read sensor temperature data and store it in the payload field
+uint8_t temp = bme.readTemperature();
+static uint8_t mydata[] = (temp);
 static osjob_t sendjob;
 
 // Schedule TX every this many seconds (might become longer due to duty
@@ -270,5 +277,14 @@ void setup() {
 }
 
 void loop() {
-    os_runloop_once();
+  
+    do_send(&sendjob, mydata);
+Serial.println("Sending...");
+//Run LMIC loop until he as finish
+while(flag_TXCOMPLETE == 0)
+{
+  os_runloop_once();
+}
+flag_TXCOMPLETE = 0;
+//loop
 }
