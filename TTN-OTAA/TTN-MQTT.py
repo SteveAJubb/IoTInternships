@@ -15,9 +15,9 @@ INFLUXDB_PASSWORD = ''                      # Create Password
 INFLUXDB_DATABASE = ''                      # Create or enter existing database 
 
 
-MQTT_USER = 'indoor-air-quality'
-MQTT_PASSWORD = 'ttn-account-v2.gtxNrMTOvSfWmK4ad2ZJf3VJkk91bREYKXmEfc2WvLg'
-MQTT_ADDRESS = 'eu.thethings.network'
+MQTT_USER = ''                              # Enter App ID
+MQTT_PASSWORD = ''                          # Enter Access Key
+MQTT_ADDRESS = 'eu.thethings.network'       # Change region if required
 # Setting up the Influx server
 influxdb_client = InfluxDBClient(INFLUXDB_ADDRESS, 8086, INFLUXDB_USER, INFLUXDB_PASSWORD, None)
 
