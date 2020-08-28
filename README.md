@@ -73,7 +73,25 @@ Now that the application and device have been setup, we need to configure the Ha
     .rst = 4,
     .dio = {7, 6 , LMIC_UNUSED_PIN}
 };
+5. You must write a smiliar payload decoder function to the one shown below. As the data transmitted is 2 bytes, we must be able to extract the relevant data to the TTN console.  
 
-5. Run the OTAA script on the board.
+<img src="PayloadDecoder.png" width="200" >
 
 
+6. Run the OTAA script on the board. This uses the LMIC and BME libraries to send the readings to The Things Newtork.
+
+7. On the Raspberry Pi 3 (the one used for testing), run the 'TTN-MQTT.py' script and change the parameters shown below:
+
+Edit the Influxdb server information
+
+> INFLUXDB_ADDRESS = ''        
+INFLUXDB_USER = ''                         
+INFLUXDB_PASSWORD = ''                      
+INFLUXDB_DATABASE = ''                     
+
+Enter the Application ID, Access Key, and region (if required) respectively
+> MQTT_USER = ''                                   
+MQTT_PASSWORD = ''    
+MQTT_ADDRESS = ''     
+
+8. Open grafana on https://localhost:3000. Create your dashboard using influxdb, you can follow [this](https://medium.com/@ashrafur/beginning-visualization-with-grafana-and-influxdb-81701e10569d) link for instructions on creating your first dashboard.
