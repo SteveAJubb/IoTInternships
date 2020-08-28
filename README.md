@@ -75,7 +75,7 @@ Now that the application and device have been setup, we need to configure the Ha
 };
 5. You must write a smiliar payload decoder function to the one shown below. As the data transmitted is 2 bytes, we must be able to extract the relevant data to the TTN console.  
 
-<img src="PayloadDecoder.png" width="200" >
+<img src="PayloadDecoder.png" width="500" >
 
 
 6. Run the OTAA script on the board. This uses the LMIC and BME libraries to send the readings to The Things Newtork.
