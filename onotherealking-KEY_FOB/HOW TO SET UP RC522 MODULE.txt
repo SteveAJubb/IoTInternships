@@ -1,0 +1,37 @@
+HOW TO SETUP RFID-RC522 2ITH ARDUINO UNO
+WIRING
+The following LIST shows the needed connections between the RFID and the Arduino Uno
+RFID-RC522
+Module
+          Arduino Uno
+1 -       SDA Digital 10
+2 -       SCK Digital 13
+3 -       MOSI Digital 11
+4 -       MISO Digital 12
+5 -       IRQ --unconnected--
+6 -    	  GND Gnd
+7 -       RST Digital
+Cautions:
+*On the Arduino many of the pins are not swappable. Because this device uses the SPI bus, who’s pins cannot be moved
+around, pins 11, 12, 13 must remain as shown. RST and IRQ are user specified.
+*This device is NOT a 5 volt powered device. You MUST power it with 3.3 volts. If you do not, you risk overheating the
+RFID. Most Arduino boards include a 3.3V supply pin which can be used to power the RFID module. 
+*The connection wires must be soldered to the module if not the arduino shows an error ststing there is no connection
+
+ADDING THE LIBRARY
+If you haven’t already done so, the AddicoreRFID library needs to be added to your Arduino library depository.
+1. Download the Addicore RFID library from Github.
+2. Open the Arduino IDE and navigate to Sketch > Include Library. A drop down menu will
+appear. Click the option to “Add .ZIP Library…”
+3. A window will open. Navigate to the location where the AddicoreRFID library you downloaded above is currently located
+and open it.
+4. You can confirm that the library has been installed by again navigating to Sketch > Include Library. The AddicoreRFID
+library should now show in the list of “Contributed libraries.
+
+PROGRAMMING THE ARDUINO
+After installing the AddicoreRFID library in the steps above the library will be available to use in sketches but any example
+sketches included with the library may not be shown in File > Examples until after restarting the Arduino IDE.
+1. Restart the Arduino IDE by closing all currently open Arduino IDE windows and then opening the Arduino IDE.
+2. When the Arduino IDE opens navigate to File > Examples > AddicoreRFID. Select the “Addicore_RFID_Example” sketch.
+This will open a sketch which we will use with the RFID module that we wired to our Arduino earlier.
+3. Now connect your Arduino to your computer and upload the code.
